@@ -1,0 +1,70 @@
+<%- include("_header") -%>
+
+<h1>Lista de Estratégias (<%= model.length %>)</h1>
+
+<div class="table-responsive-sm" style="width:70%; max-width:1200px">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2" style="min-width:300px">Descrição</th>
+        <th colspan="2">Tempo Jogo</th>
+        <th colspan="2">Odds Casa</th>
+        <th colspan="2">Odds Visitante</th>
+<!--         <th colspan="2">Ataques Perigosos Casa</th>
+        <th colspan="2">Ataques Perigoso Visitante</th>
+        <th colspan="2">Soma Casa</th>
+        <th colspan="2">Soma Visitante</th>
+        <th rowspan="2">Visitante Ganhando</th>
+        <th rowspan="2">Empate</th>
+ -->        <th class="d-print-none" rowspan="2" >
+          <a class="btn btn-sm btn-success" href="/createEstrategia">Ações</a>
+        </th>
+      </tr>
+      <tr>
+        <th>Inicial</th>
+        <th>Final</th>
+        <th>Inicial</th>
+        <th>Final</th>
+        <th>Inicial</th>
+        <th>Final</th>
+<!--         <th>Inicial</th>
+        <th>Final</th>
+        <th>Inicial</th>
+        <th>Final</th>
+        <th>Inicial</th>
+        <th>Final</th>
+        <th>Inicial</th>
+        <th>Final</th>
+ -->      </tr>
+    </thead>
+    <tbody>
+      <% for (const estrategia of model) { %>
+        <tr>
+          <td><%= estrategia.Descricao %></td>
+          <td><%= estrategia.TempoJogoInicial %></td>
+          <td><%= estrategia.TempoJogoFinal %></td>
+          <td><%= estrategia.OddCasaInicial %></td>
+          <td><%= estrategia.OddCasaFinal %></td>
+          <td><%= estrategia.OddDesafianteInicial %></td>
+          <td><%= estrategia.OddDesafianteFinal %></td>
+<!--           <td><%= estrategia.AtaquesCasaInicial %></td>
+          <td><%= estrategia.AtaquesCasaFinal %></td>
+          <td><%= estrategia.AtaquesDesafianteInicial %></td>
+          <td><%= estrategia.AtaquesDesafianteFinal %></td>
+          <td><%= estrategia.SomaCasaInicial %></td>
+          <td><%= estrategia.SomaCasaFinal %></td>
+          <td><%= estrategia.SomaDesafianteInicial %></td>
+          <td><%= estrategia.SomaDesafianteFinal %></td>
+          <td><%= estrategia.PlacarCasaFavoravel %></td>
+          <td><%= estrategia.PlacarEmpatado %></td>
+ -->          <td class="d-print-none">
+            <a class="btn btn-sm btn-warning" href="/editEstrategia/<%= estrategia.Estrategia_ID %>">Editar</a>
+            <a class="btn btn-sm btn-danger" href="/deleteEstrategia/<%= estrategia.Estrategia_ID %>">Excluir</a>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("_footer") -%>

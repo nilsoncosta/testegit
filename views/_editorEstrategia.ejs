@@ -1,0 +1,106 @@
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="Descricao">Descrição</label>
+  <div class="col-xs-10 col-md-6">
+    <input autofocus class="form-control" name="Descricao" value="<%= model.Descricao %>" />
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="TempoJogoInicial">Tempo Jogo</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="TempoJogoInicial" value="<%= model.TempoJogoInicial %>" min="0" max="90" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="TempoJogoFinal" value="<%= model.TempoJogoFinal %>" min="0" max="90" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="OddCasaInicial">Odds da Casa</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="OddCasaInicial" value="<%= model.OddCasaInicial %>" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="OddCasaFinal" value="<%= model.OddCasaFinal %>" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="OddDesafianteInicial">Odds do Visitante</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="OddDesafianteInicial" value="<%= model.OddDesafianteInicial %>" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="OddDesafianteFinal" value="<%= model.OddDesafianteFinal %>" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="AtaquesCasaInicial">Ataques da Casa</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="AtaquesCasaInicial" value="<%= model.AtaquesCasaInicial %>" step="1" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="AtaquesCasaFinal" value="<%= model.AtaquesCasaFinal %>" step="1" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="AtaquesDesafianteInicial">Ataques do Visitante</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="AtaquesDesafianteInicial" value="<%= model.AtaquesDesafianteInicial %>" step="1" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="AtaquesDesafianteFinal" value="<%= model.AtaquesDesafianteFinal %>" step="1" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="SomaCasaInicial">Soma da Casa</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="SomaCasaInicial" value="<%= model.SomaCasaInicial %>" step="1" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="SomaCasaFinal" value="<%= model.SomaCasaFinal %>" step="1" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="SomaDesafianteInicial">Soma do Visitante</label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="SomaDesafianteInicial" value="<%= model.SomaDesafianteInicial %>" step="1" type="number"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="SomaDesafianteFinal" value="<%= model.SomaDesafianteFinal %>" step="1" type="number"/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-form-label col-xs-2 col-md-2"></div>
+    <div class="col-xs-6 col-md-2">
+    <input class="form-check-input"  style="margin-left: 0px;" type="checkbox" value="S" id="PlacarCasaFavoravel" name="PlacarCasaFavoravel" <%= model.PlacarCasaFavoravel === 'S' ? "checked" : "" %>>
+    <label class="form-check-label"  style="margin-left: 20px;" for="PlacarCasaFavoravel">
+      Placar Favorável
+    </label>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-form-label col-xs-2 col-md-2"></div>
+  <div class="col-xs-6 col-md-2">
+    <input class="form-check-input" style="margin-left: 0px;" type="checkbox" value="S" id="PlacarEmpatado" name="PlacarEmpatado" <%= model.PlacarEmpatado === 'S' ? "checked" : "" %>>
+    <label class="form-check-label" style="margin-left: 20px;" for="PlacarEmpatado">
+      Placar Empatado
+    </label>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-xs-2 col-md-2" style="text-align: right;" for="HoraInicial"></label>
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="HoraInicial" value="<%= model.HoraInicial %>" type="time"/>
+  </div> <span> a </span> 
+  <div class="col-xs-6 col-md-1">
+    <input class="form-control" name="HoraFinal" value="<%= model.HoraFinal %>" type="time"/>
+  </div>
+</div>
