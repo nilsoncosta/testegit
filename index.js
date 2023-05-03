@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
+const schedule = require('node-schedule');
 
 const app = express();
 
@@ -61,10 +62,6 @@ db.run(sql_create, err => {
   });  */
 });
 
-app.listen(3000, () => {
-    console.log("Disponível em: (http://localhost:3000/) !");
-});
-
 // GET /
 app.get("/", (req, res) => {
   res.render("index", { page: 'home' });
@@ -90,34 +87,6 @@ app.get("/data", (req, res) => {
   res.render("data", { model: test, page: 'jogos' });
 });
 
-// GET /livres
-app.get("/livres", (req, res) => {
-  const sql = "SELECT * FROM Livres ORDER BY Titre";
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("livres", { model: rows, page: 'livres' });
-  });
-});
-
-// GET /create
-app.get("/create", (req, res) => {
-  res.render("create", { model: {} });
-});
-
-// POST /create
-app.post("/create", (req, res) => {
-  const sql = "INSERT INTO Livres (Titre, Auteur, Commentaires) VALUES (?, ?, ?)";
-  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires];
-  db.run(sql, book, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
-  });
-});
-
 // GET /createEstrategia
 app.get("/createEstrategia", (req, res) => {
   res.render("createEstrategia", { model: {}, page: 'estrategia' });
@@ -125,21 +94,21 @@ app.get("/createEstrategia", (req, res) => {
 
 // POST /createEstrategia
 app.post("/createEstrategia", (req, res) => {
-  const sql = `INSERT INTO Livres (Descricao,TempoJogoInicial,
+  const sql = `INSERT INTO estrategia (Descricao,TempoJogoInicial,
     TempoJogoFinal, OddCasaInicial, OddCasaFinal, OddDesafianteInicial, 
     OddDesafianteFinal, AtaquesCasaInicial, AtaquesCasaFinal, AtaquesDesafianteInicial, 
     AtaquesDesafianteFinal, SomaCasaInicial, SomaCasaFinal, SomaDesafianteInicial, 
-    SomaDesafianteFinal, PlacarCasaFavoravel, PlacarEmpatado, HoraInicial, HoraFinal) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?)`;
+    SomaDesafianteFinal, PlacarCasaFavoravel, PlacarEmpatado, HoraInicial, HoraFinal) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
   const estrategia = [req.body.Descricao, req.body.TempoJogoInicial, req.body.TempoJogoFinal, 
     req.body.OddCasaInicial, req.body.OddCasaFinal, req.body.OddDesafianteInicial, 
     req.body.OddDesafianteFinal, req.body.AtaquesCasaInicial, req.body.AtaquesCasaFinal, req.body.AtaquesDesafianteInicial, 
     req.body.AtaquesDesafianteFinal, req.body.SomaCasaInicial, req.body.SomaCasaFinal, req.body.SomaDesafianteInicial, 
-    req.body.SomaDesafianteFinal, req.body.PlacarCasaFavoravel, req.body.PlacarEmpatado, req.body.HoraInicial, req.body.HoraFinal, Estrategia_ID];
+    req.body.SomaDesafianteFinal, req.body.PlacarCasaFavoravel, req.body.PlacarEmpatado, req.body.HoraInicial, req.body.HoraFinal];
   db.run(sql, estrategia, err => {
     if (err) {
       return console.error(err.message);
     }
-    res.redirect("/livres");
+    res.redirect("/estrategia");
   });
 });
 
@@ -152,18 +121,6 @@ app.get("/editEstrategia/:id", (req, res) => {
       return console.error(err.message);
     }
     res.render("editEstrategia", { model: row, page: 'estrategia' });
-  });
-});
-
-// GET /edit/5
-app.get("/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
-  db.get(sql, id, (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("edit", { model: row, page: 'estrategia' });
   });
 });
 
@@ -189,19 +146,6 @@ app.post("/editEstrategia/:id", (req, res) => {
   });
 });
 
-// POST /edit/5
-app.post("/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const book = [req.body.Titre, req.body.Auteur, req.body.Commentaires, id];
-  const sql = "UPDATE Livres SET Titre = ?, Auteur = ?, Commentaires = ? WHERE (Livre_ID = ?)";
-  db.run(sql, book, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
-  });
-});
-
 // GET /deleteEstrategia/5
 app.get("/deleteEstrategia/:id", (req, res) => {
   const id = req.params.id;
@@ -211,30 +155,6 @@ app.get("/deleteEstrategia/:id", (req, res) => {
       return console.error(err.message);
     }
     res.render("deleteEstrategia", { model: row, page: 'estrategia' });
-  });
-});
-
-// GET /delete/5
-app.get("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM Livres WHERE Livre_ID = ?";
-  db.get(sql, id, (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.render("delete", { model: row });
-  });
-});
-
-// POST /delete/5
-app.post("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "DELETE FROM Livres WHERE Livre_ID = ?";
-  db.run(sql, id, err => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.redirect("/livres");
   });
 });
 
@@ -248,4 +168,16 @@ app.post("/deleteEstrategia/:id", (req, res) => {
     }
     res.redirect("/Estrategia");
   });
+});
+
+const job = schedule.scheduleJob('*/1 * * * *', async () => {
+    try{
+        console.log("Executando worker service")
+    }catch(exception){
+        console.log(exception)
+    }
+}); 
+
+app.listen(3000, () => {
+    console.log("Serviço iniciado na porta 3000!");
 });

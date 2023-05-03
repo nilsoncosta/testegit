@@ -8,7 +8,7 @@
     bottom: 0;
     color: #09041f;
     height: 50px;    
-    text-align: center;
+    text-align: right;
     line-height: 50px;
   }
 
@@ -29,7 +29,8 @@
   .slidemenu{
     font-family: arial, sans-serif;
     max-width: 600px;
-    margin: 50px auto;
+    margin: 20px auto;
+    margin-bottom: 10px auto;
     overflow: hidden;
   }
   
